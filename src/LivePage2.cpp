@@ -107,7 +107,7 @@ void playVideo(VideoProcessor& vProcessor, AudioProcessor* audio = nullptr, Fl_I
 			if (pic != nullptr) {
 				Fl_RGB_Image* image2 = new Fl_RGB_Image(pic->data[0], width, height);
 				image = image2->copy(640, 360);
-				image->draw(290, 20);
+				image->draw(0, 0);
 				delete (image);
 				delete (image2);
 				if (!vProcessor.refreshFrame()) {
@@ -196,29 +196,29 @@ void startSdlAudio(SDL_AudioDeviceID& audioDeviceID, AudioProcessor& aProcessor)
 
 LivePage2::LivePage2(Fl_Window* window) : Fl_Group(0, 0, window->w(), window->h()) {
 
-	window->label(ClientUtil::fl_str("直播房间"));
+	window->label(ClientUtil::fl_str("player"));
 
-	info = new Fl_Group(30,20,230,500);
-	roomId = new Fl_Box(40, 40, 0, 0, ClientUtil::fl_str("房间号: 100001"));
-	roomId->align(FL_ALIGN_RIGHT);
-	roomId->labelsize(18);
-	roomUser = new Fl_Box(40, 70, 0, 0, ClientUtil::fl_str("主播: 测试主播"));
-	roomUser->align(FL_ALIGN_RIGHT);
-	roomUser->labelsize(18);
-	btn1 = new Fl_Button(100, 480, 90, 30, ClientUtil::fl_str("退出"));
-	btn1->box(_FL_ROUND_UP_BOX);
-	btn1->clear_visible_focus();
-	info->end();
+	//info = new Fl_Group(30,20,90,30);
+	//roomId = new Fl_Box(40, 40, 0, 0, ClientUtil::fl_str("房间号: 100001"));
+	//roomId->align(FL_ALIGN_RIGHT);
+	//roomId->labelsize(18);
+	//roomUser = new Fl_Box(40, 70, 0, 0, ClientUtil::fl_str("主播: 测试主播"));
+	//roomUser->align(FL_ALIGN_RIGHT);
+	//roomUser->labelsize(18);
+	//btn1 = new Fl_Button(100, 480, 90, 30, ClientUtil::fl_str("退出"));
+	//btn1->box(_FL_ROUND_UP_BOX);
+	//btn1->clear_visible_focus();
+	//info->end();
 
-	video = new Fl_Box(290, 20, 640, 360);
+	video = new Fl_Box(0,0,640,360);
 	video->box(FL_BORDER_FRAME);
 
-	box_cmt_image = new Fl_Text_Display(290, 400, 640, 120);
-	box_cmt_image->align(FL_ALIGN_TOP_LEFT);
-	box_cmt_image->box(FL_BORDER_BOX);
-	text_buffer = new Fl_Text_Buffer();
-	text_buffer->text(ClientUtil::fl_str("还没有留言"));
-	box_cmt_image->buffer(text_buffer);
+	//box_cmt_image = new Fl_Text_Display(290, 400, 640, 120);
+	//box_cmt_image->align(FL_ALIGN_TOP_LEFT);
+	//box_cmt_image->box(FL_BORDER_BOX);
+	//text_buffer = new Fl_Text_Buffer();
+	//text_buffer->text(ClientUtil::fl_str("还没有留言"));
+	//box_cmt_image->buffer(text_buffer);
 
 	//播放视频的初始化
 	auto formatCtx = packetGrabber.getFormatCtx();
@@ -243,7 +243,7 @@ LivePage2::LivePage2(Fl_Window* window) : Fl_Group(0, 0, window->w(), window->h(
 	startAudioThread.detach();
 	videoThread.detach();
 	PlayUtil* util = new PlayUtil{ window, videoProcessor, audioProcessor };
-	btn1->callback((Fl_Callback*)switchPage, util);
+	//btn1->callback((Fl_Callback*)switchPage, util);
 	this->end();
 }
 

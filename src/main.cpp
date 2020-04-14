@@ -10,11 +10,10 @@
 using namespace std;
 
 int main(int argc, char** argv) {
-	Fl_Window* window = new Fl_Window(960, 540);
-	Fl_Group* btn1 = new LivePage2(window);
+	Fl_Window* window = new Fl_Window(640, 360);
+	Fl_Group* video = new LivePage2(window);
 	window->end();
 	window->show(argc, argv);
 	return Fl::run();
-
 
 }

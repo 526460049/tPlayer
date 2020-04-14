@@ -22,8 +22,8 @@ struct PlayUtil {
 class LivePage2 : public Fl_Group {
 public:
 	LivePage2(Fl_Window* window);
-	void playRGB(void*);
-	void playAudio(void*);
+	//void playRGB(void*);
+//	void playAudio(void*);
 private:
 	static void switchPage(Fl_Button* btn, PlayUtil*);
 	Fl_Button* btn1;
