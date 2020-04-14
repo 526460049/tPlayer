@@ -1,0 +1,10 @@
+set(CMAKE_INCLUDE_PATH 
+	"F:/SDL2-2.0.12/include/SDL2"
+    "F:/ffmpeg-4.2.2-win32-dev/include"
+	"F:/FLTK/fltk-1.3.5"
+)
+set(CMAKE_LIBRARY_PATH 
+	"F:/SDL2-2.0.12/lib/x86"
+    "F:/ffmpeg-4.2.2-win32-dev/lib"
+	"F:/FLTK/fltk-1.3.5/x86_lib"
+)
