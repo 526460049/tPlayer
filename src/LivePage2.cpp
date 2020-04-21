@@ -55,18 +55,6 @@ void pktReader(PacketGrabber& pGrabber, AudioProcessor* aProcessor,
 	cout << "[THREAD] INFO: pkt Reader thread finished." << endl;
 }
 
-void picRefresher(int timeInterval, bool& exitRefresh, bool& faster) {
-	cout << "picRefresher timeInterval[" << timeInterval << "]" << endl;
-	while (!exitRefresh) {
-		if (faster) {
-			std::this_thread::sleep_for(std::chrono::milliseconds(timeInterval / 2));
-		}
-		else {
-			std::this_thread::sleep_for(std::chrono::milliseconds(timeInterval));
-		}
-	}
-	cout << "[THREAD] picRefresher thread finished." << endl;
-}
 
 void playVideo(VideoProcessor& vProcessor, AudioProcessor* audio = nullptr, Fl_Image* image = nullptr) {
 	//--------------------- GET SDL window READY -------------------
@@ -130,7 +118,7 @@ void playVideo(VideoProcessor& vProcessor, AudioProcessor* audio = nullptr, Fl_I
 	cout << "[THREAD] Sdl video thread finish: failCount = " << failCount << endl;
 }
 
-void startSdlAudio(SDL_AudioDeviceID& audioDeviceID, AudioProcessor& aProcessor) {
+void playAudio(SDL_AudioDeviceID& audioDeviceID, AudioProcessor& aProcessor) {
 	//--------------------- GET SDL audio READY -------------------
 	Sleep(500);
 	// audio specs containers
@@ -216,7 +204,7 @@ LivePage2::LivePage2(Fl_Window* window) : Fl_Group(0, 0, window->w(), window->h(
 	SDL_AudioDeviceID audioDeviceID;
 
 	std::thread readerThread{pktReader, std::ref(packetGrabber), audioProcessor, videoProcessor };
-	std::thread startAudioThread(startSdlAudio, std::ref(audioDeviceID),std::ref(*audioProcessor));
+	std::thread startAudioThread(playAudio, std::ref(audioDeviceID),std::ref(*audioProcessor));
 	std::thread videoThread{playVideo, std::ref(*videoProcessor), audioProcessor, image};
 	readerThread.detach();
 	startAudioThread.detach();
@@ -226,18 +214,6 @@ LivePage2::LivePage2(Fl_Window* window) : Fl_Group(0, 0, window->w(), window->h(
 	this->end();
 }
 
-void LivePage2::switchPage(Fl_Button* btn, PlayUtil* util) {
-	//Fl::remove_timeout(play);
-	SDL_Quit();
-	SDL_CloseAudioDevice(0);
-	cout << util->videoProcessor->close() << endl;
-	cout << util->audioProcessor->close() << endl;
-	Sleep(100);
-	util->window->clear();
-	util->window->begin();
-//	Fl_Group* group = new LiveList(util->window);
-	util->window->end();
-	util->window->redraw();
-}
+
 
 
